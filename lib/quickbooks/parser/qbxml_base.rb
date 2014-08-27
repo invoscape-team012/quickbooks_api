@@ -6,12 +6,12 @@ class Quickbooks::Parser::QbxmlBase
 
   QBXML_BASE = Quickbooks::Parser::QbxmlBase
 
-  FLOAT_CAST = Proc.new {|d| d ? Float(d) : 0.0}                                  
-  BOOL_CAST  = Proc.new {|d| d ? (d == 'True' ? true : false) : false }          
-  DATE_CAST  = Proc.new {|d| d ? Date.parse(d).strftime("%Y-%m-%d") : Date.today.strftime("%Y-%m-%d") } 
-  TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }   
-  INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }                                 
-  STR_CAST   = Proc.new {|d| d ? String(d) : ''}                                  
+  FLOAT_CAST = Proc.new {|d| d ? Float(d) : 0.0}
+  BOOL_CAST  = Proc.new {|d| d ? (d == 'true' ? true : false) : false }
+  DATE_CAST  = Proc.new {|d| d ? Date.parse(d).strftime("%Y-%m-%d") : Date.today.strftime("%Y-%m-%d") }
+  TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
+  INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }
+  STR_CAST   = Proc.new {|d| d ? String(d) : ''}
 
   QB_TYPE_CONVERSION_MAP= {
     "AMTTYPE"          => FLOAT_CAST,
@@ -98,7 +98,7 @@ class Quickbooks::Parser::QbxmlBase
             when QBXML_BASE
               val.attributes
             when Array
-              val.inject([]) { |a, obj| obj.is_a?(QBXML_BASE) ? a << obj.attributes : a << obj } 
+              val.inject([]) { |a, obj| obj.is_a?(QBXML_BASE) ? a << obj.attributes : a << obj }
             else val
             end
         else
@@ -121,7 +121,7 @@ private
 
   def self.build_template(recursive = false)
     attribute_names.inject({}) do |h, a|
-      attr_type = self.send("#{a}_type") 
+      attr_type = self.send("#{a}_type")
       h[a] = ((attr_type < QBXML_BASE) && recursive) ? attr_type.build_template(true): attr_type.to_s; h
     end
   end
