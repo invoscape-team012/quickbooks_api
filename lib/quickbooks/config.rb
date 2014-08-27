@@ -1,16 +1,16 @@
 module Quickbooks::Config
 
   API_ROOT = File.join(File.dirname(__FILE__), '..', '..').freeze
-  XML_SCHEMA_PATH = File.join(API_ROOT, 'xml_schema').freeze   
-  RUBY_SCHEMA_PATH = File.join(API_ROOT, 'ruby_schema').freeze 
+  XML_SCHEMA_PATH = File.join(API_ROOT, 'xml_schema').freeze
+  RUBY_SCHEMA_PATH = File.join(API_ROOT, 'ruby_schema').freeze
 
   SCHEMA_MAP = {
-    :qb    => {:dtd_file => "qbxmlops70.xml", 
-               :namespace => Quickbooks::QBXML, 
+    :qb    => {:dtd_file => "qbxmlops120.xml",
+               :namespace => Quickbooks::QBXML,
                :container_class => 'QBXML'
               }.freeze,
-    :qbpos => {:dtd_file => "qbposxmlops30.xml", 
-               :namespace => Quickbooks::QBPOSXML, 
+    :qbpos => {:dtd_file => "qbposxmlops30.xml",
+               :namespace => Quickbooks::QBPOSXML,
                :container_class => 'QBPOSXML'
               }.freeze,
   }.freeze
@@ -26,7 +26,7 @@ private
   end
 
   def dtd_file
-    "#{XML_SCHEMA_PATH}/#{SCHEMA_MAP[schema_type][:dtd_file]}" 
+    "#{XML_SCHEMA_PATH}/#{SCHEMA_MAP[schema_type][:dtd_file]}"
   end
 
   def schema_namespace
@@ -34,7 +34,7 @@ private
   end
 
 # introspection
-  
+
   def cached_classes
     schema_namespace.constants.map { |const| schema_namespace.const_get(const) }
   end
@@ -43,7 +43,7 @@ module ClassMethods
 
   def check_schema_type!(schema_type)
     unless SCHEMA_MAP.include?(schema_type)
-      raise(ArgumentError, "valid schema type required: #{valid_schema_types.inspect}") 
+      raise(ArgumentError, "valid schema type required: #{valid_schema_types.inspect}")
     end
   end
 
