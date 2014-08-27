@@ -16,7 +16,7 @@ module Quickbooks::Parser::XMLGeneration
       log.debug "to_qbxml#attr_name: #{attr_name}"
 
       val = self.send(attr_name)
-      next unless val && val.not_blank?
+      next if val != false && val.blank?
 
       xml_nodes += build_qbxml_nodes(xml_template, val)
       log.debug "to_qbxml#val: #{val}"
