@@ -11,10 +11,11 @@ class Quickbooks::Parser::QbxmlBase
   DATE_CAST  = Proc.new {|d| d ? Date.parse(d).strftime("%Y-%m-%d") : Date.today.strftime("%Y-%m-%d") }
   TIME_CAST  = Proc.new {|d| d ? Time.parse(d).xmlschema : Time.now.xmlschema }
   INT_CAST   = Proc.new {|d| d ? Integer(d.to_i) : 0 }
-  STR_CAST   = Proc.new {|d| d ? String(d) : ''}
+  STR_CAST   = Proc.new {|d| d ? String(d) :
+  AMT_CAST = Proc.new {|d| d ? '%.2f' % (d) : "0.00"}
 
   QB_TYPE_CONVERSION_MAP= {
-    "AMTTYPE"          => FLOAT_CAST,
+    "AMTTYPE"          => AMT_CAST,
     "BOOLTYPE"         => BOOL_CAST,
     "DATETIMETYPE"     => TIME_CAST,
     "DATETYPE"         => DATE_CAST,
