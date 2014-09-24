@@ -25,7 +25,7 @@ class Quickbooks::Parser::QbxmlBase
     "IDTYPE"           => STR_CAST,
     "INTTYPE"          => INT_CAST,
     "PERCENTTYPE"      => FLOAT_CAST,
-    "PRICETYPE"        => FLOAT_CAST,
+    "PRICETYPE"        => AMT_CAST,
     "QUANTYPE"         => INT_CAST,
     "STRTYPE"          => STR_CAST,
     "TIMEINTERVALTYPE" => STR_CAST
